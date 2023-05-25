@@ -50,6 +50,26 @@ LCD ekranı Arduino'ya bağlamak için aşağıdaki adımları uygulayabilirsini
 
 # LCD-DHT11 not with I2C
 
+1. İlk olarak, `dht` ve `LiquidCrystal` kütüphanelerini içeri aktarıyoruz. Bu kütüphaneler Arduino IDE'de önceden yüklenmiş olmalıdır.
+
+2. Ardından, `dht` kütüphanesi ile DHT11 sensörünü temsil etmek üzere `DHT` adında bir nesne oluşturuyoruz.
+
+3. `DHT11_PIN` sabitini tanımlayarak DHT11 sensörünün sinyal hattının Arduino'da bağlı olduğu pinin numarasını belirtiyoruz.
+
+4. LCD ekranı için `LiquidCrystal` sınıfından bir nesne oluşturuyoruz ve bağlantı pinlerini belirtiyoruz. Örnekte, RS pini Arduino'nun 12. pini, Enable pini 11. pini, D4 pini 5. pini, D5 pini 4. pini, D6 pini 3. pini ve D7 pini 2. pini olarak tanımlanmıştır. Bu pin numaralarını LCD ekranınıza göre değiştirmeniz gerekebilir.
+
+5. `setup()` fonksiyonunda, LCD ekranını başlatıyoruz ve ilk satıra "Sicaklik: " yazdırıyoruz. İkinci satıra geçerek "Nem: " yazdırıyoruz.
+
+6. `loop()` fonksiyonunda, DHT11 sensöründen veri okumak için `DHT.read11()` fonksiyonunu kullanıyoruz ve okuma sonucunu `readData` değişkenine atıyoruz.
+
+7. Okuma başarılıysa, DHT11 sensöründen alınan sıcaklık ve nem değerlerini `DHT.temperature` ve `DHT.humidity` özelliklerinden alıyoruz ve `temperature` ve `humidity` değişkenlerine atıyoruz.
+
+8. `displayTemperature()` fonksiyonunu çağırarak sıcaklık değerini LCD ekranın 0. satırının 10. sütununa yazdırıyoruz ve " C" ile birlikte gösteriyoruz.
+
+9. `displayHumidity()` fonksiyonunu çağırarak nem değerini LCD ekranın 1. satırının 6. sütununa yazdırıyoruz ve "%" ile birlikte gösteriyoruz.
+
+10. Son olarak, `delay(2000)` ile 2 saniye gecikme ekleyerek ölçümlerin arasında zaman veriyoruz.
+
 
 Eğer LCD ekranınız I2C arabirimine sahip değilse, doğrudan bağlantı yapmanız gerekecektir. Bu durumda LCD ekranını Arduino Uno'ya bağlamak için aşağıdaki adımları izleyebilirsiniz:
 
@@ -68,4 +88,19 @@ Eğer LCD ekranınız I2C arabirimine sahip değilse, doğrudan bağlantı yapma
 
 
 Bu adımları takip ederek, I2C arabirimine sahip olmayan LCD ekranınızı Arduino Uno'ya doğrudan bağlayabilir ve kullanabilirsiniz. Bağlantıları doğru bir şekilde yapmak ve kodunuzu doğru ayarlamak önemlidir.
+
+# DHT11 Connections
+
+1. DHT11 sensörü, üç pinden oluşur: VCC, GND ve SIGNAL (veri). 
+   - VCC pini 5V güç kaynağına bağlanmalıdır.
+   - GND pini Arduino'nun GND (toprak) pinine bağlanmalıdır.
+   - SIGNAL pini, veri iletimi için Arduino'ya bağlanacak pin olacaktır.
+
+
+2. Arduino Uno'nun 2. pini, DHT11 sensöründeki SIGNAL piniyle doğrudan bağlantılı olmalıdır.
+
+Bu şekilde DHT11 sensörü doğru bir şekilde Arduino Uno'ya bağlanacaktır. Daha sonra, kodu çalıştırarak sensörden sıcaklık ve nem verilerini okuyabilirsiniz.
+
+
+
 
